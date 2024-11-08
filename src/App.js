@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import './App.css';
-import './App.css';
 
 function App() {
     const [message, setMessage] = useState('');
@@ -10,14 +9,6 @@ function App() {
     const [audioUrl, setAudioUrl] = useState('');
 
     useEffect(() => {
-        // For local development (ensure the Flask app runs on port 5001)
-        /*
-            const ws = io('http://127.0.0.1:5001', {
-              transports: ['websocket'],
-            });
-        */
-
-        // For deployment, replace with your deployed URL (e.g., Render)
         const ws = io('wss://pythonprojectn8n.onrender.com/', {
             transports: ['websocket'],
         });
@@ -57,19 +48,27 @@ function App() {
     const sendMessage = () => {
         if (message && socket) {
             socket.send(message);
+            setAudioUrl('');
+            setResponse("Please w8, processing!");
         }
     };
 
     return (
-        <div>
-            <h1>WebSocket Test</h1>
+        <div className="main-container">
+            <h1>Text to audio converter</h1>
             <input
+                className="input-initial"
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Enter message to convert"
             />
-            <button onClick={sendMessage}>Send Message</button>
+
+            <div className="send-container">
+                <button onClick={sendMessage}>Send Message</button>
+            </div>
+
+
             <p>{response}</p>
 
             {audioUrl && (
