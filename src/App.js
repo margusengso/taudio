@@ -51,7 +51,7 @@ function App() {
     const sendMessage = () => {
         if (message && socket) {
             let messageObject = { message }
-            socket.send(messageObject);
+            socket.emit('message', messageObject);
             setAudioUrl('');
             setResponse("Please w8, processing!");
         }
