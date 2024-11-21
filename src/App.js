@@ -9,6 +9,11 @@ function App() {
     const [audioUrl, setAudioUrl] = useState('');
 
     useEffect(() => {
+
+/*            const ws = io('http://127.0.0.1:5001', {
+              transports: ['websocket'],
+            });*/
+
         const ws = io('wss://pythonprojectn8n.onrender.com/', {
             transports: ['websocket'],
         });
@@ -36,10 +41,8 @@ function App() {
             console.error('WebSocket error:', error);
         });
 
-        // Save the WebSocket connection in state
         setSocket(ws);
 
-        // Cleanup on component unmount
         return () => {
             ws.close();
         };
@@ -47,7 +50,8 @@ function App() {
 
     const sendMessage = () => {
         if (message && socket) {
-            socket.send(message);
+            let messageObject = { message }
+            socket.send(messageObject);
             setAudioUrl('');
             setResponse("Please w8, processing!");
         }

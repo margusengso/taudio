@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Taudio",
+  "name": "Text to Audio",
   "icons": [
     {
       "src": "favicon.ico",
